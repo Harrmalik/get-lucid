@@ -1,11 +1,6 @@
 <?php include_once 'views/header.php'; ?>
 
   <section>
-    <!-- <div class="ui breadcrumb">
-      <a class="section">Home</a>
-      <i class="right angle icon divider"></i>
-      <div class="active section">Dreams</div>
-    </div> -->
 
     <?php
       // Include the models needed

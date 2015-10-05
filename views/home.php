@@ -3,7 +3,7 @@
     <div>
       <img class="ui image" id="homeImage" src="imgs/home.jpg" alt="Home page image of a fantasy land" />
     </div>
-    <div class="ui inverted raised segment">
+    <article class="ui inverted raised segment">
       <h2 class="ui header">Exploring The Lucid Dream World</h2>
       <p>At first, I was stunned by the realism of my dream reality. For the first time in my life,
        I was awake and aware in a completely separate reality. It was like a science-fiction movie.
@@ -32,7 +32,7 @@
       <p>A great lucid dream can change the way you view the waking world. Imagine then, summoning a lifetime of
       lucid dreams for yourself...</p>
       <p>Read More at <a href="http://www.world-of-lucid-dreaming.com/lucid-dreamer.html" target="_blank">World of lucid dreaming</a></p>
-    </div>
+   </article>
   </div>
 </article>
 
