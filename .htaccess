@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /get-lucid/
+  RewriteRule \.(gif|jpg|png|css|ico|swf|js|inc\.php|php)$ - [L]
+  RewriteRule ^admin/(\w+)(|/)$ admin.php?action=$1 [NC,L]
+  RewriteRule ^admin/(\w+)/([\w-]+) admin.php?action=$1&url=$2 [NC,L]
+  RewriteRule ^(\w+)/?$ index.php?action=$1
+  RewriteRule ^(\w+)/([\w-]+) index.php?action=$1&url=$2
+</IfModule>
