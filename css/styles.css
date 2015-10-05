@@ -1,0 +1,43 @@
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+p {
+  line-height: 1.5;
+  font-size: 1.1em;
+}
+
+section {
+  min-height:100%;
+  position:relative;
+}
+
+article {
+  padding: 1em;
+}
+
+#homeImage {
+  width: 100%;
+  max-height: 600px;
+}
+
+article div.ui.inverted.segments { border: 0 !important;}
+
+article#description, article#dream {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+article#dream img {
+  width: 100%;
+}
+
+footer {
+  width:100%;
+	bottom:0;
+	left:0;
+  margin-bottom: 0 !important;
+}
