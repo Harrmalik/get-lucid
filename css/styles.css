@@ -24,7 +24,14 @@ article {
   max-height: 600px;
 }
 
-article div.ui.inverted.segments { border: 0 !important;}
+article div.ui.breadcrumb {
+	padding: 1em;
+}
+
+article div.ui.inverted.segments {
+	border: 0;
+	margin: 0;
+}
 
 article#description, article#dream {
   padding: 0 !important;
