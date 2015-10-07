@@ -10,7 +10,8 @@
       session_start();
 
       // Declare variables
-      $error = '';
+      $error = "";
+      $message = "";
 
       if (isset($_GET['action'])){
       		$action = $_GET['action'];
@@ -30,7 +31,7 @@
         $url = NULL;
       }
 
-      include_once 'views/header.php';
+
 
       switch($action) {
         case 'adddream':
@@ -90,10 +91,17 @@
                   // Include database connection
                   $db = new PDO(DB_INFO, DB_USER, DB_PASS);
                   $users = new Users($db);
+                  $dreams = new Dreams($db);
+
+                  $d = $dreams->getDreams();
 
                   $user = $users->addUser($_POST);
 
-                  include_once 'views/dreams.php';
+                  $_SESSION['loggedin'] = ($user['num_users'] == 1) ? 0 : NULL;
+
+                  $_SESSION['username'] = $_POST['username'];
+
+                  include_once 'views/list.php';
                  exit;
                }
 
@@ -106,22 +114,30 @@
                // Include database connection
                $db = new PDO(DB_INFO, DB_USER, DB_PASS);
                $users = new Users($db);
+               $dreams = new Dreams($db);
+
+               $d = $dreams->getDreams();
 
                $user = $users->login($_POST);
 
-               $_SESSION['loggedin'] = ($user['num_users'] > 0) ? 0 : NULL;
+               $_SESSION['loggedin'] = ($user['num_users'] == 1) ? 0 : NULL;
 
-               if($_SESSION['loggedin'] > 0) {
+               if(isset($_SESSION['loggedin'])) {
                  $_SESSION['username'] = $_POST['username'];
-                 include_once 'views/dreams.php';
+                  include_once 'views/list.php';
               } else {
-                 echo "User does not exist";
-                 include_once 'views/adduser.php';
+                 $error =  "Username or password is not correct";
+                 include_once 'views/login.php';
               }
 
                exit;
             }
             break;
+
+         case 'logout' :
+            session_destroy();
+            include_once 'views/logout.php';
+
 
         default:
           // If not action is found return the user to the main page
@@ -130,5 +146,3 @@
     ?>
 
   </section>
-
-<?php include_once 'views/footer.php'; ?>

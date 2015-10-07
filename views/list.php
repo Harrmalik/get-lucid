@@ -1,3 +1,5 @@
+<?php include_once 'header.php'; ?>
+
 <article>
 
    <div class="ui breadcrumb">
@@ -30,3 +32,5 @@
 
   <a href="adddream" class="ui blue button right aligned">Add New Dream</a>
 </article>
+
+<?php include_once 'footer.php'; ?>

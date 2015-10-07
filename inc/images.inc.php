@@ -8,7 +8,7 @@ class ImageHandler {
 
 
   // Sets the $save_dir on instantiation
-  public function __construct($save_dir, $max_dims=array(1366,400)) {
+  public function __construct($save_dir, $max_dims=array(1920,400)) {
     $this->save_dir = $save_dir;
     $this->max_dims = $max_dims;
   }

@@ -1,3 +1,5 @@
+<?php include_once 'header.php'; ?>
+
 <form class="ui form ui container"  method="post" action="/get-lucid/index.php" enctype="multipart/form-data">
   <div class="ui clearing segment">
     <h3 class="ui header">
@@ -20,3 +22,5 @@
   <input class="ui button" type="submit" name="submit" value="Save Dream" />
   <input class="ui button" type="submit" name="submit" value="Cancel" />
 </form>
+
+<?php include_once 'footer.php'; ?>

@@ -1,3 +1,4 @@
+<?php include_once 'header.php'; ?>
 
 <article id="dream">
    <div class="ui breadcrumb">
@@ -21,3 +22,5 @@
     </div>
   </div>
 </article>
+
+<?php include_once 'footer.php'; ?>

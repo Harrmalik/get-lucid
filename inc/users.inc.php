@@ -54,7 +54,7 @@ class Users {
              WHERE username=?
              AND password=SHA1(?)";
 
-     $q = $db->prepare($sql);
+     $q = $this->db->prepare($sql);
      $q->execute(array($_POST['username'], $_POST['password']));
      $response = $q->fetch();
 

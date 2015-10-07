@@ -1,3 +1,5 @@
+<?php include_once 'header.php'; ?>
+
 <article id="description">
   <div class="ui inverted segments">
     <div>
@@ -55,3 +57,5 @@
   I can 'turn up' my level of consciousness, allowing me to see, hear, feel, taste and smell everything
   as vividly as waking life.</p>
 </article>
+
+<?php include_once 'footer.php'; ?>
