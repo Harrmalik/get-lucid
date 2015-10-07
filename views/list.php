@@ -1,12 +1,14 @@
 <?php include_once 'header.php'; ?>
 
-<article>
+<article class="ui container">
 
    <div class="ui breadcrumb">
      <a class="section" href="/get-lucid/">Home</a>
      <i class="right angle icon divider"></i>
      <div class="active section">Dreams</div>
    </div>
+
+   <?php if($message != NULL) { echo $message; } ?>
 
   <div class="ui items">
     <?php foreach($d as $dream) { ?>
@@ -27,10 +29,13 @@
           </div>
         </div>
       </div>
+      <div class="ui divider"></div>
     <?php } ?>
   </div>
 
-  <a href="adddream" class="ui blue button right aligned">Add New Dream</a>
+  <?php if(isset($_SESSION['username'])) { ?>
+    <a href="adddream" class="ui blue button right aligned">Add New Dream</a>
+  <?php } ?>
 </article>
 
 <?php include_once 'footer.php'; ?>

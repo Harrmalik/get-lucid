@@ -1,5 +1,7 @@
 <?php include_once 'header.php'; ?>
 
+<?php if($message != NULL) { echo $message; } ?>
+
 <article id="description">
   <div class="ui inverted segments">
     <div>

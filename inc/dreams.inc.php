@@ -102,35 +102,62 @@ class Dreams {
   * @param bool $rename whether or not the image should be renamed
   * @return string the path to the resized uploaded file
   */
-  public function addDream($d, $img) {
+  public function addDream($d, $img = NULL) {
     // Sanitize the data and store it in variables
     $dreamName = htmlentities(strip_tags($d['dreamName']), ENT_QUOTES);
     $dreamContent = htmlentities(strip_tags($d['dreamContent']), ENT_QUOTES);
     // Keep formatting of comments and remove extra whitespace
     $dreamContent = nl2br(trim($dreamContent));
 
-    $sql ="INSERT INTO dreams (id, dreamName, dreamContent, image, tag, url)
-           VALUES (?, ?, ?, ?, ?, ?)";
+    if(!empty($_POST['id'])) {
+      $sql ="UPDATE dreams
+             SET dreamName=?, dreamContent=?, url=?
+             WHERE id=?
+             LIMIT 1";
 
-    $q = $this->db->prepare($sql);
-    $q->execute(array(
-      $id = SHA1(uniqid()),
-      $dreamName,
-      $dreamContent,
-      $img,
-      $tags = 'General',
-      $url = $this->makeURL($dreamName)
-    ));
+      $q = $this->db->prepare($sql);
+      $q->execute(array(
+         $dreamName,
+         $dreamContent,
+         $url = $this->makeURL($dreamName),
+         $_POST['id']
+      ));
 
-    $q->closeCursor();
+      $q->closeCursor();
 
-    // Get the ID of the entry we just saved
-    $id_obj = $this->db->query("SELECT LAST_INSERT_ID()");
-    $id = $id_obj->fetch();
-    $id_obj->closeCursor();
+      return $url;
+   } else {      
+       $sql ="INSERT INTO dreams (id, dreamName, dreamContent, image, tag, url)
+              VALUES (?, ?, ?, ?, ?, ?)";
 
-    return $id_obj;
+       $q = $this->db->prepare($sql);
+       $q->execute(array(
+         $id = SHA1(uniqid()),
+         $dreamName,
+         $dreamContent,
+         $img,
+         $tags = 'General',
+         $url = $this->makeURL($dreamName)
+       ));
+
+       $q->closeCursor();
+
+       // Get the ID of the entry we just saved
+       $id_obj = $this->db->query("SELECT LAST_INSERT_ID()");
+       $id = $id_obj->fetch();
+       $id_obj->closeCursor();
+
+       return $id_obj;
+   }
+
   }
+
+
+
+
+
+
+
 
 
 

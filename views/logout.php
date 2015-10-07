@@ -1,6 +1,6 @@
 <?php include_once 'header.php'; ?>
 
-<div class="ui success message">
+<div class="ui success message container">
   <i class="close icon"></i>
   <div class="header">
     You have successfully logged out

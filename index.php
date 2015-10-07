@@ -6,6 +6,7 @@
       include_once 'inc/dreams.inc.php';
       include_once 'inc/images.inc.php';
       include_once 'inc/users.inc.php';
+      include_once 'inc/messages.inc.php';
 
       session_start();
 
@@ -32,12 +33,24 @@
       }
 
 
+      if (isset($_GET['dream'])){
+        $action = 'editdream';
+      }
+
+      $loc = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '../';
+
+
 
       switch($action) {
         case 'adddream':
              if(isset($_GET['action'])){
                include_once 'views/editDream.php';
              } else {
+                if($_POST['submit'] == "Cancel") {
+                   // Check if the user clicked cancel, if so don't submit
+                   header('location: '. $loc);
+                   exit;
+                }
                if(!empty($_POST['dreamName']) && !empty($_POST['dreamContent'])) {
                  // Include database connection
                  $db = new PDO(DB_INFO, DB_USER, DB_PASS);
@@ -63,11 +76,32 @@
 
                  $id = $dreams->addDream($_POST, $img_path);
 
-                 include_once 'views/home.php';
+                 header('location: /get-lucid/dreams/'.$url);
                  exit;
                }
              }
           break;
+        case 'editdream':
+
+             // Include database connection
+           $db = new PDO(DB_INFO, DB_USER, DB_PASS);
+           $dreams = new Dreams($db);
+         if(isset($_GET['action'])){
+
+             $d = $dreams->getDream(NULL, $_GET['dream']);
+
+            include_once 'views/editDream.php';
+            break;
+         } else {
+            if($_POST['submit'] == "Cancel") {
+               // Check if the user clicked cancel, if so don't submit
+               header('location: '. $loc);
+               exit;
+            }
+            $dreams->addDream($_POST);
+            header('location: /get-lucid/dreams/'.$url);
+         }
+
 
         case 'dreams':
              // Include database connection
@@ -88,6 +122,11 @@
                if(isset($_GET['action'])){
                  include_once 'views/adduser.php';
                } else {
+                  if($_POST['submit'] == "Cancel") {
+                     // Check if the user clicked cancel, if so don't submit
+                     header('location: '. $loc);
+                     exit;
+                  }
                   // Include database connection
                   $db = new PDO(DB_INFO, DB_USER, DB_PASS);
                   $users = new Users($db);
@@ -101,6 +140,7 @@
 
                   $_SESSION['username'] = $_POST['username'];
 
+                  $message = msgUserCreated($_POST['username']);
                   include_once 'views/list.php';
                  exit;
                }
@@ -124,6 +164,7 @@
 
                if(isset($_SESSION['loggedin'])) {
                  $_SESSION['username'] = $_POST['username'];
+                 $message = msgSignedIn($_POST['username']);
                   include_once 'views/list.php';
               } else {
                  $error =  "Username or password is not correct";
@@ -136,12 +177,23 @@
 
          case 'logout' :
             session_destroy();
-            include_once 'views/logout.php';
+            session_start();
+            $db = new PDO(DB_INFO, DB_USER, DB_PASS);
+            $dreams = new Dreams($db);
+
+            $d = $dreams->getDreams();
+
+            // Send the user back to their last location
+
+            $message = msgSignedOut();
+            include_once 'views/list.php';
+
+            break;
 
 
         default:
           // If not action is found return the user to the main page
-          include('views/home.php');
+          include_once ('views/home.php');
       }
     ?>
 
