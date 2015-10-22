@@ -10,6 +10,9 @@
 
    <?php if($message != NULL) { echo $message; } ?>
 
+   <h2 class="ui header">Viewing Lastest Dreams
+      <div class="ui sub header">All Categories</div>
+   </h2>
   <div class="ui items">
     <?php foreach($d as $dream) { ?>
       <div class="item">

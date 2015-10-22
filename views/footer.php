@@ -1,3 +1,4 @@
+  </section>
     <footer>
       <nav class="ui pointing menu inverted">
         <a href="/get-lucid/" class="item"><h2 class="ui header inverted">Get Lucid</h2></a>
@@ -15,5 +16,7 @@
         </div>
       </nav>
     </footer>
+
+     <script scr="/get-lucid/js/main.js"></script>
   </body>
 </html>

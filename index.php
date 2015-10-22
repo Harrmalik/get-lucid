@@ -4,6 +4,7 @@
       // Include the models needed
       include_once 'inc/config.inc.php';
       include_once 'inc/dreams.inc.php';
+      include_once 'inc/comments.inc.php';
       include_once 'inc/images.inc.php';
       include_once 'inc/users.inc.php';
       include_once 'inc/messages.inc.php';
@@ -37,9 +38,8 @@
         $action = 'editdream';
       }
 
+      $_SESSION['username'] = (isset($_SESSION['username'])) ? $_SESSION['username'] : NULL;
       $loc = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '../';
-
-
 
       switch($action) {
         case 'adddream':
@@ -107,12 +107,14 @@
              // Include database connection
              $db = new PDO(DB_INFO, DB_USER, DB_PASS);
              $dreams = new Dreams($db);
+             $comments = new Comments($db);
 
              if($url == NULL) {
                $d = $dreams->getDreams();
                include_once 'views/list.php';
              } else {
                $d = $dreams->getDream($url);
+               $c = $comments->getComments($d['id']);
                include_once 'views/dream.php';
              }
 
@@ -187,6 +189,24 @@
 
             $message = msgSignedOut();
             include_once 'views/list.php';
+
+            break;
+
+         case 'addcomment':
+           if(!empty($_POST['content'])) {
+             // Include database connection
+             $db = new PDO(DB_INFO, DB_USER, DB_PASS);
+
+             $comments = new Comments($db);
+
+             $comments->addcomment($_POST);
+
+            header('location: '. $loc);
+             exit;
+           }
+            break;
+
+         case 'editcomment':
 
             break;
 

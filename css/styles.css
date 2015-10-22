@@ -46,10 +46,19 @@ article#dream img {
 	float: right;
 }
 
+article .ui.comments {
+	max-width: none;
+}
+
 footer {
+	clear: both;
   width:100%;
-  position: absolute;
-	bottom:0;
-	left:0;
+  position: relative;
+  bottom:0;
+  left:0;
   margin-bottom: 0 !important;
+}
+
+.hide {
+	display: none;
 }

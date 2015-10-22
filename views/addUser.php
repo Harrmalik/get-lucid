@@ -8,7 +8,7 @@
   </div>
   <div class="field">
     <label for="username">Username</label>
-    <input type="text" name="username" maxlength="60">
+    <input type="text" name="username" maxlength="60" value=" ">
   </div>
   <div class="field">
     <label for="password">Password</label>
