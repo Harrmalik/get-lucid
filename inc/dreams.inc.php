@@ -126,9 +126,9 @@ class Dreams {
       $q->closeCursor();
 
       return $url;
-   } else {      
-       $sql ="INSERT INTO dreams (id, dreamName, dreamContent, image, tag, url)
-              VALUES (?, ?, ?, ?, ?, ?)";
+   } else {
+       $sql ="INSERT INTO dreams (id, dreamName, dreamContent, image, tag, url, username)
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
 
        $q = $this->db->prepare($sql);
        $q->execute(array(
@@ -137,7 +137,8 @@ class Dreams {
          $dreamContent,
          $img,
          $tags = 'General',
-         $url = $this->makeURL($dreamName)
+         $url = $this->makeURL($dreamName),
+         $username = 'Harrmalik'
        ));
 
        $q->closeCursor();

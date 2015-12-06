@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2015 at 05:00 PM
--- Server version: 10.0.17-MariaDB
+-- Generation Time: Dec 06, 2015 at 08:12 AM
+-- Server version: 10.0.15-MariaDB
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -27,14 +27,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
-  `commentID` int(11) NOT NULL AUTO_INCREMENT,
+  `commentID` varchar(40) NOT NULL,
   `content` text NOT NULL,
-  `postDate` int(11) NOT NULL,
-  `dreamID` int(11) NOT NULL,
+  `postDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `dreamID` varchar(40) NOT NULL,
   `userName` varchar(255) NOT NULL,
+  `url` varchar(140) DEFAULT NULL,
   PRIMARY KEY (`commentID`),
   KEY `dreamID` (`dreamID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`commentID`, `content`, `postDate`, `dreamID`, `userName`, `url`) VALUES
+('65ef8505be9b41d8a4b956fad34a687e0933cbe4', 'This is the first comment for the meteor post', '2015-12-06 06:40:17', 'sde1331', 'Harrmalik', 'meteor-shower');
 
 -- --------------------------------------------------------
 
@@ -61,8 +69,16 @@ CREATE TABLE IF NOT EXISTS `dreams` (
 --
 
 INSERT INTO `dreams` (`id`, `dreamName`, `dreamContent`, `image`, `tag`, `url`, `created`, `username`) VALUES
-('b95af6c7e684425a48db', 'Summoners Rifts', 'Join the battle against the great baron on the fields of summoners rift. Play as one of the many champions as they fight for victory over their enemies.', '/get-lucid/imgs/1443944479_1865.jpg', 'General', 'summoners-rifts', '2015-10-04 07:41:19', 'adm1n-mh'),
-('d4d163e3ee3a363ab4b0', 'Summoners Rifted', 'Join the battle against the great baron on the fields of summoners rift. Play as one of the many champions as they fight for victory over their enemies.', '/get-lucid/imgs/1443944503_3891.jpg', 'General', 'summoners-rifted', '2015-10-04 07:41:43', 'adm1n-mh');
+('b95af6c7e684425a48db', 'Summoners Rift', 'Join the battle against the great baron on the fields of summoners rift. Play as one of the many champions as they fight for victory over their enemies.', '/get-lucid/imgs/1443944503_3891.jpg', 'General', 'summoners-rift', '2015-10-04 07:41:19', 'Harrmalik'),
+('b95af6c7e684425a48dc', 'Underwater Adventure', '', '/get-lucid/imgs/1449384956_9011.jpg', 'Fantasy', 'underwater-adventure', '2015-12-06 07:11:17', 'Harrmalik'),
+('b95af6c7e684425a48dd', 'Gears of Wars', '', '/get-lucid/imgs/1449385080_5028.jpg', 'Video Game', 'gears-of-war', '2015-12-06 07:11:17', 'Harrmalik'),
+('b95af6c7e684425a48de', 'Alien Invasion', '', '/get-lucid/imgs/1449385095_3707.jpg', 'Fantasy', 'alien-invasion', '2015-12-06 07:11:17', 'Harrmalik'),
+('b95af6c7e684425a48df', 'Joy Ride', '', '/get-lucid/imgs/1449385109_2058.jpg', 'Futuristic', 'joy-ride', '2015-12-06 07:11:17', 'Harrmalik'),
+('b95af6c7e684425a48dg', 'Alternate Reality', '', '/get-lucid/imgs/1449385121_3924.jpg', 'Trippy', 'alternate-reality', '2015-12-06 07:11:17', 'Harrmalik'),
+('b95af6c7e684425a48dh', 'Deserted Island', 'You dream of being on a deserted island which at first glance seems to be paradise, but as a volcano erupts and a mystical object appears in the sky could this means vacation is over?', '/get-lucid/imgs/1449385138_9345.jpg', 'Island-Gataway', 'deserted-island', '2015-12-06 07:11:17', 'Harrmalik'),
+('b95af6c7e684425a48dj', 'Two Roads', '', '/get-lucid/imgs/1449385152_8858.jpg', 'Trippy', 'two-roads', '2015-12-06 07:11:17', 'Harrmalik'),
+('b95af6c7e684425a48dk', 'Road Trip', '', '/get-lucid/imgs/1449385167_4426.jpg', 'Landscapes', 'road-trip', '2015-12-06 07:11:17', 'Harrmalik'),
+('sde1331', 'Meteor Shower', 'Travel to space and watch as earth gets demolished by dozens of meteors', '/get-lucid/imgs/1449250561_6486.jpg', 'General', 'meteor-shower', '2015-12-05 06:41:43', 'Harrmalik');
 
 -- --------------------------------------------------------
 
@@ -83,9 +99,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `isAdmin`, `created`) VALUES
-('adm1n-m', 'f8c12b556b30abe13ca6101f76c51c8688361443', 0, '2015-10-07 14:09:44'),
-('adm1n-mh', 'f8c12b556b30abe13ca6101f76c51c8688361443', 0, '2015-10-07 03:45:28'),
-('test', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 0, '2015-10-07 03:46:48');
+(' Harrmalik', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 1, '2015-12-04 17:23:47');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

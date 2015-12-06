@@ -18,7 +18,7 @@
     <div class="ui inverted raised segment">
       <h2 class="ui header" id="dreamHeader"><?php echo $d['dreamName']; ?>
          <?php if(isset($_SESSION['username']) && $d['username'] == $_SESSION['username']) { ?>
-            <span><a href="/get-lucid/dream/<?php echo $d['url']; ?>/<?php echo $d['id']; ?> ">Edit Dream</a></span>
+            <span><a href="/get-lucid/editdream/<?php echo $d['url']; ?>/<?php echo $d['id']; ?> ">Edit Dream</a></span>
          <?php } ?>
       </h2>
 
@@ -48,8 +48,8 @@
                 </div>
                 <div class="actions">
                    <?php if(isset($_SESSION['username']) && $_SESSION['username'] == $comment['userName']) { ?>
-                  <a class="ui button basic green mini" href="/get-lucid/dreams/<?php echo $url; ?>">Edit</a>
-                  <a class="ui button basic red mini" href="/get-lucid/dreams/<?php echo $url; ?>">Delete</a>
+                     <span><a class="ui button basic green mini" href="/get-lucid/editcomment/<?php echo $comment['commentID']; ?>">Edit</a>
+                        <a class="ui button basic red mini" href="/get-lucid/deletecomment/<?php echo $comment['commentID']; ?>">Delete</a></span>
                   <?php } elseif (isset($_SESSION['username'])) { ?>
                      <a href="#">Like</a>
                   <?php } ?>
@@ -72,6 +72,7 @@
               </div>
 
               <input type="hidden" name="action" value="addcomment" />
+              <input type="hidden" name="url" value="<?php echo $d['url'] ?>" />
               <input type="hidden" name="dreamID" value="<?php echo $d['id'] ?>" />
               <input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>" />
               <input class="ui basic blue button" type="submit" name="submit" value="Add Comment" />

@@ -19,7 +19,7 @@
         <div class="header">
           Welcome '. $username . '
         </div>
-        <p>How about getting started with writing about your favorite dream <a href="/get-lucid/adddream" class="ui blue button">New Dream!</a></p>
+        <p>How about getting started by writing a comment on some of the recent dreams</p>
       </div>';
 
       return $msg;
@@ -31,7 +31,7 @@
         <div class="header">
           Welcome back '. $username . '!
         </div>
-        <p>Care to share a new dream? <a href="/get-lucid/adddream" class="ui blue button tiny">New Dream!</a></p>
+        <p>You are now viewing the recent dream posts, feel free to browse and comment on dreams that inspire you.</p>
       </div>';
 
       return $msg;

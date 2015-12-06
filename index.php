@@ -34,9 +34,9 @@
       }
 
 
-      if (isset($_GET['dream'])){
-        $action = 'editdream';
-      }
+      // if (isset($_GET['dream'])){
+      //   $action = 'editdream';
+      // }
 
       $_SESSION['username'] = (isset($_SESSION['username'])) ? $_SESSION['username'] : NULL;
       $loc = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '../';
@@ -45,41 +45,39 @@
         case 'adddream':
              if(isset($_GET['action'])){
                include_once 'views/editDream.php';
-             } else {
-                if($_POST['submit'] == "Cancel") {
+            } else if($_POST['submit'] == "Cancel") {
                    // Check if the user clicked cancel, if so don't submit
-                   header('location: '. $loc);
+                   header('location: /get-lucid/dreams');
                    exit;
+             }else if(!empty($_POST['dreamName']) && !empty($_POST['dreamContent'])) {
+              // Include database connection
+              $db = new PDO(DB_INFO, DB_USER, DB_PASS);
+
+              if(isset($_FILES['image']['tmp_name'])) {
+                try {
+                    // Instantiate the class and set a save path
+                    $img = new ImageHandler("/get-lucid/imgs");
+
+                    // Process the file and store the returned path
+                    $img_path = $img->processUploadedImage($_FILES['image']);
                 }
-               if(!empty($_POST['dreamName']) && !empty($_POST['dreamContent'])) {
-                 // Include database connection
-                 $db = new PDO(DB_INFO, DB_USER, DB_PASS);
+                catch(Exception $e) {
+                    // If an error occurred, output your custom error message
+                    die($e->getMessage());
+                }
+              } else {
+                  // Avoids a notice fi no image was uploaded
+                  $img_path = NULL;
+              }
+              $img_path = NULL;
+              $dreams = new Dreams($db);
 
-                 if(isset($_FILES['image']['tmp_name'])) {
-                   try {
-                       // Instantiate the class and set a save path
-                       $img = new ImageHandler("/get-lucid/imgs");
+              $id = $dreams->addDream($_POST, $img_path);
 
-                       // Process the file and store the returned path
-                       $img_path = $img->processUploadedImage($_FILES['image']);
-                   }
-                   catch(Exception $e) {
-                       // If an error occurred, output your custom error message
-                       die($e->getMessage());
-                   }
-                 } else {
-                     // Avoids a notice fi no image was uploaded
-                     $img_path = NULL;
-                 }
 
-                 $dreams = new Dreams($db);
-
-                 $id = $dreams->addDream($_POST, $img_path);
-
-                 header('location: /get-lucid/dreams/'.$url);
-                 exit;
-               }
-             }
+              header('location: /get-lucid/dreams');
+              exit;
+            }
           break;
         case 'editdream':
 
@@ -206,9 +204,34 @@
            }
             break;
 
-         case 'editcomment':
+         case 'deletecomment':
+            // Include database connection
+            $db = new PDO(DB_INFO, DB_USER, DB_PASS);
 
+            $comments = new Comments($db);
+
+            $comments->deleteComment($_GET['url']);
+
+            header('location: '. $loc);
+            exit;
             break;
+
+         case 'editcomment':
+              // Include database connection
+              $db = new PDO(DB_INFO, DB_USER, DB_PASS);
+              $comments = new Comments($db);
+            if(isset($_GET['action'])){
+
+              $c = $comments->getComment($_GET['url']);
+              include_once ('views/editComment.php');
+              exit;
+           } else {
+             $c = $comments->addcomment($_POST);
+               
+             header('location: /get-lucid/dreams/'.$_POST['url']);
+             exit;
+          }
+          break;
 
 
         default:
